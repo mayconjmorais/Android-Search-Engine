@@ -3,4 +3,12 @@
     <string name="app_name">Android Labs</string>
     <string name="hello_message">Ola Mundo!</string>
     <string name="ButtonText">Eu sou um botao</string>
+    <string name="textView">Olhe meu GUI</string>
+    <string name="clickHere">CLIQUE AQUI</string>
+    <string name="checkHere">selecione isto!</string>
+    <string name="switch1">Chave on/off</string>
+    <string name="typeHere">Digite aqui</string>
+    <string name="toast_message">Aqui tem mais infomacoes</string>
+    <string name="snack_message">A chave agora esta</string>
+    <string name="flag">bandeira</string>
 </resources>
