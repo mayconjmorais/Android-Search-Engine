@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="@string/textView"
+        android:layout_alignParentTop="true"
+        />
+
+    <Button
+        android:id="@+id/clickHere"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clickHere"
+        android:layout_below="@+id/textView"
+        android:layout_toEndOf="@+id/checkHere"
+        android:layout_alignParentStart="true"
+        />
+
+    <CheckBox
+        android:id="@+id/checkHere"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkHere"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentEnd="true"
+        />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/flag"
+        android:layout_below="@+id/clickHere"
+        android:contentDescription="@string/flag" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/switch1"
+        android:layout_below="@id/checkHere"
+        android:layout_alignParentEnd="true"
+        />
+
+    <EditText
+        android:id="@+id/typeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/typeHere"
+        android:gravity="fill_horizontal"
+        android:layout_below="@id/imageButton"
+        />
+
+</RelativeLayout>
