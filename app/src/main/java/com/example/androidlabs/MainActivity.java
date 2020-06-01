@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_linear); // showed on my screen
+        setContentView(R.layout.activity_main_grid); // showed on my screen
 
         // toast message on checkBox
         Button button = (Button)findViewById(R.id.clickHere);
