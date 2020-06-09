@@ -2,50 +2,53 @@ package com.example.androidlabs;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
+    SharedPreferences prefs = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_linear); // showed on my screen
+        setContentView(R.layout.lab3_activity_main_linear); // showed on my screen
 
-        // toast message on checkBox
-        Button button = (Button)findViewById(R.id.clickHere);
-        button.setOnClickListener((v) ->
-        {
-            Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_message), Toast.LENGTH_LONG).show();
-        } );
+        /**
+         * here start lab 3
+         */
+        prefs = getSharedPreferences("fileName", MODE_PRIVATE);
 
-        // snack bar for checkbox and switch components
-        CheckBox chBox = (CheckBox)findViewById(R.id.checkHere);
-        chBox.setOnCheckedChangeListener((cb, b) -> {
-            Snackbar.make(cb, cb.isChecked()?getResources().getString(R.string.snack_message)+" on":getResources().getString(R.string.snack_message)+" off", Snackbar.LENGTH_LONG)
-                    .setAction("UNDO",  v -> cb.setChecked(!b))
-                    .show();
+        // step 5
+        String savedString = prefs.getString("ReserveName", "");
+
+        EditText emailText = findViewById(R.id.typeTextEmail);
+        emailText.setText(savedString);
+
+        EditText emailPass = findViewById(R.id.typeTextPass);
+
+        Button loginButton = findViewById(R.id.clickLogin);
+        loginButton.setOnClickListener(bt -> {
+            Intent goToProfile  = new Intent(this, ProfileActivity.class); // in the calling class
+            goToProfile.putExtra("EMAIL", emailText.getText().toString() );
+            startActivityForResult(goToProfile, 1);
+            onPause(emailText.getText().toString());
+
+            //goToProfile.putExtra("password", emailPass.getText().toString() );
         });
 
-        Switch simpleSwitch  = (Switch)findViewById(R.id.switch1);
-        // check state of Switch
-        Boolean switchState = simpleSwitch.isChecked();
+        // it'd be placed in the next class
+        //Intent intent = getIntent();
+        //String email = intent.getStringExtra("email");
+       // String pass = intent.getStringExtra("password");
+    }
 
-        simpleSwitch.setOnCheckedChangeListener((cb, b) -> {
-            Snackbar.make(simpleSwitch, cb.isChecked()?getResources().getString(R.string.snack_message)+" on":getResources().getString(R.string.snack_message)+" off", Snackbar.LENGTH_LONG)
-                    .setAction("UNDO", v -> simpleSwitch.setChecked(!b))
-                    .show();
-        });
-
-                TextView tv = findViewById(R.id.textView);
-                ImageButton imageButton = findViewById(R.id.imageButton);
-                EditText editText = findViewById(R.id.typeText);
+    protected void onPause(String stringToSave) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("ReserveName", stringToSave);
+        editor.commit();
     }
 }

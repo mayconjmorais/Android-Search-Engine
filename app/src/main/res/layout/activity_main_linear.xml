@@ -35,7 +35,7 @@
             android:text="@string/checkHere"
             android:layout_weight="1"
             android:gravity="fill"
-        />
+            />
     </LinearLayout>
 
 

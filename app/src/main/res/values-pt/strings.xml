@@ -11,4 +11,15 @@
     <string name="toast_message">Aqui tem mais infomacoes</string>
     <string name="snack_message">A chave agora esta</string>
     <string name="flag">bandeira</string>
+    <string name="textViewEmail">Entre com seu endereco de email</string>
+    <string name="textViewPass">Digite sua senha</string>
+    <string name="typehereEmail">Digite seu email aqui</string>
+    <string name="login">LOGIN</string>
+    <string name="TextYourProfile">Seu Perfil</string>
+    <string name="textYourName">Seu nome:</string>
+    <string name="textYourEmail">Seu email:</string>
+    <string name="textEmailAddress">Entre com seu email</string>
+    <string name="yourPicture">Sua foto:</string>
+    <string name="informationPicture">Clique no botao acima para tirar uma foto</string>
+    <string name="typeYourName">Digite seu nome</string>
 </resources>

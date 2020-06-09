@@ -10,6 +10,17 @@
     <string name="toast_message">Here is more information</string>
     <string name="snack_message">The switch is now</string>
     <string name="flag">flag</string>
+    <string name="textViewEmail">Enter your email address</string>
+    <string name="textViewPass">Type your password</string>
+    <string name="typehereEmail">Type email here</string>
+    <string name="login">LOGIN</string>
+    <string name="TextYourProfile">Your Profile</string>
+    <string name="textYourName">Your name:</string>
+    <string name="textYourEmail">Your email:</string>
+    <string name="textEmailAddress">Enter your email</string>
+    <string name="yourPicture">Your Picture:</string>
+    <string name="informationPicture">Click the button above to take a picture</string>
+    <string name="typeYourName">Enter your name</string>
 
 
 </resources>
