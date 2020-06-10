@@ -17,9 +17,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lab3_activity_main_linear); // showed on my screen
 
-        /**
-         * here start lab 3
-         */
         prefs = getSharedPreferences("fileName", MODE_PRIVATE);
 
         // step 5
@@ -36,14 +33,7 @@ public class MainActivity extends AppCompatActivity {
             goToProfile.putExtra("EMAIL", emailText.getText().toString() );
             startActivityForResult(goToProfile, 1);
             onPause(emailText.getText().toString());
-
-            //goToProfile.putExtra("password", emailPass.getText().toString() );
         });
-
-        // it'd be placed in the next class
-        //Intent intent = getIntent();
-        //String email = intent.getStringExtra("email");
-       // String pass = intent.getStringExtra("password");
     }
 
     protected void onPause(String stringToSave) {
