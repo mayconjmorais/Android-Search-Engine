@@ -25,7 +25,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
 
-
         ListView myList = findViewById(R.id.theListView);
         EditText message = findViewById(R.id.chatMessage);
 
