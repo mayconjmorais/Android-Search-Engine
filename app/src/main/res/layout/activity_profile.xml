@@ -60,4 +60,11 @@
         android:textSize="20dp"
         android:text="@string/informationPicture"
         />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/clickChat"
+        android:text="@string/chat"
+        />
 </LinearLayout>

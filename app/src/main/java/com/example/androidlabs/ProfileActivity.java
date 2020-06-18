@@ -4,14 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 public class ProfileActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -37,6 +36,14 @@ public class ProfileActivity extends AppCompatActivity {
         mImageButton.setOnClickListener(bt -> {
             dispatchTakePictureIntent();
         });
+
+        // Lab 4
+        Button clickChat = findViewById(R.id.clickChat);
+        clickChat.setOnClickListener(cc -> {
+            Intent goToChat  = new Intent(this, ChatRoomActivity.class);
+            startActivity(goToChat);
+        });
+
     }
     // creates a new Intent which will open the camera
     private void dispatchTakePictureIntent() {

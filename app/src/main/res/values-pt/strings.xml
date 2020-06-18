@@ -22,4 +22,12 @@
     <string name="yourPicture">Sua foto:</string>
     <string name="informationPicture">Clique no botao acima para tirar uma foto</string>
     <string name="typeYourName">Digite seu nome</string>
+    <string name="chat">CHAT</string>
+    <string name="send" translatable="false">ENVIA</string>
+    <string name="receive" translatable="false">RECEBE</string>
+    <string name="alertMessage" translatable="false">Voce quer excluir isso?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Nao</string>
+    <string name="alertmsg1">A linha selecionada e: </string>
+    <string name="alertmsg2">O Id no banco de dados e: </string>
 </resources>
