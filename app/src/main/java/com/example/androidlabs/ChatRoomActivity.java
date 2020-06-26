@@ -53,17 +53,24 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         // AlertDialog
         myList.setOnItemLongClickListener((parent, view, pos, id) -> {
+            // professor example - does not work yet
+            View newView = getLayoutInflater().inflate(R.layout.activity_chat_sender, null, false);
+            TextView text = newView.findViewById(R.id.textChat);
+            text.setText("Different layout");
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            String alertMsg = R.string.alertmsg1 + pos + "\n" + R.string.alertmsg2;
             alert.setTitle(R.string.alertMessage)
-                    .setMessage("The selected row is: " + pos + "\nThe database id id: ")
+                    .setMessage("Do you want to delete this?")
+                    //.setMessage("The selected row is: " + pos + "\nThe database id id: "+id)
                     .setNegativeButton(R.string.no, (click, arg) -> {
                     })
                     .setPositiveButton(R.string.yes, (click, arg) -> {
                         elements.remove(pos);
                         myAdapter.notifyDataSetChanged();
-                    });
-            alert.show();
+                    })
+                    .setView(newView)
+                    .create().show();
+
+                   // alert.show();
             return false;
         });
 

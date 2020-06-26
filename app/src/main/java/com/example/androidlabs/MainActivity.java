@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -33,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
             goToProfile.putExtra("EMAIL", emailText.getText().toString() );
             startActivityForResult(goToProfile, 1);
             onPause(emailText.getText().toString());
+
+            // midterm
+            Spinner optSelect = findViewById(R.id.os);
+
         });
     }
 
