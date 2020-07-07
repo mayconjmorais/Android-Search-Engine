@@ -1,7 +1,5 @@
 package com.example.androidlabs;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -10,7 +8,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -55,12 +54,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data); // TODO need to remove
+        super.onActivityResult(requestCode, resultCode, data);
         Log.e(ACTIVITY_NAME, "In Function onActivityResult()");
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            //ImageView imageView = (ImageView) findViewById(R.id.picture); // TODO is it ok? site
+            //ImageView imageView = (ImageView) findViewById(R.id.picture);
             mImageButton.setImageBitmap(imageBitmap);
         }
     }
