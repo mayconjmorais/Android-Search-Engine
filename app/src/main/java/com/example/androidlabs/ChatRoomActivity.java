@@ -20,6 +20,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.util.ArrayList;
 
 public class ChatRoomActivity extends AppCompatActivity {
+    ListView listView;
+    MyOpener dbOpener;
     private ChatRoomAdapter myAdapter;
     private ArrayList<Message> elements = new ArrayList<>();
     SQLiteDatabase db;
@@ -30,6 +32,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         ListView myList = findViewById(R.id.theListView);
         EditText message = findViewById(R.id.chatMessage);
+        myList.setAdapter(myAdapter = new ChatRoomAdapter(elements));
 
         loadDataFromDatabase();
 
@@ -37,52 +40,51 @@ public class ChatRoomActivity extends AppCompatActivity {
         Button send = findViewById(R.id.senderButton);
         send.setOnClickListener(sd -> {
             String messageText = message.getText().toString();
+             if (messageText != null && !messageText.isEmpty()) {
+                 //add to the database and get the new ID
+                 ContentValues newRowValues = new ContentValues();
 
-            //add to the database and get the new ID
-            ContentValues newRowValues = new ContentValues();
+                 //put string sender in the SENDER column:
+                 newRowValues.put(MyOpener.COL_SENDER, true);
 
-            //put string sender in the SENDER column:
-            newRowValues.put(MyOpener.COL_SENDER, "user1");
+                 //put string message in the MSG column:
+                 newRowValues.put(MyOpener.COL_MSG, messageText);
 
-            //put string message in the MSG column:
-            newRowValues.put(MyOpener.COL_MSG, "messageText");
-
-            //Now insert in the database:
-            long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValues);
-            Message newMessage = new Message(messageText, true, newId);
-            elements.add(newMessage);
-            myAdapter.notifyDataSetChanged();
-            //should insert the message into the database
-            message.setText("");
-
+                 //Now insert in the database:
+                 long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValues);
+                 Message newMessage = new Message(messageText, true, newId);
+                 elements.add(newMessage);
+                 myAdapter.notifyDataSetChanged();
+                 //should insert the message into the database
+                 message.setText("");
+             }
         });
 
         // Soldier button
         Button receive = findViewById(R.id.receiverButton);
         receive.setOnClickListener(rc -> {
             String messageText = message.getText().toString();
+            if (messageText != null && !messageText.isEmpty()) {
+                //add to the database and get the new ID
+                ContentValues newRowValues = new ContentValues();
 
-            //add to the database and get the new ID
-            ContentValues newRowValues = new ContentValues();
+                //put string sender in the SENDER column:
+                newRowValues.put(MyOpener.COL_SENDER, false);
 
-            //put string sender in the SENDER column:
-            newRowValues.put(MyOpener.COL_SENDER, "user2");
+                //put string message in the MSG column:
+                newRowValues.put(MyOpener.COL_MSG, messageText);
 
-            //put string message in the MSG column:
-            newRowValues.put(MyOpener.COL_MSG, "messageText");
+                //Now insert in the database:
+                long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValues);
 
-            //Now insert in the database:
-            long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValues);
+                Message newMessage = new Message(messageText, false, newId);
+                elements.add(newMessage);
 
-            Message newMessage = new Message(messageText, false, newId);
-            elements.add(newMessage);
-
-            myAdapter.notifyDataSetChanged();
-            //should insert the message into the database
-            message.setText("");
+                myAdapter.notifyDataSetChanged();
+                //should insert the message into the database
+                message.setText("");
+            }
         });
-
-        myList.setAdapter(myAdapter = new ChatRoomAdapter(elements));
 
         // AlertDialog
         myList.setOnItemLongClickListener((parent, view, pos, id) -> {
@@ -97,6 +99,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     .setNegativeButton(R.string.no, (click, arg) -> {
                     })
                     .setPositiveButton(R.string.yes, (click, arg) -> {
+                        deleteMessage(elements.get(pos));
                         elements.remove(pos);
                         myAdapter.notifyDataSetChanged();
                     })
@@ -117,26 +120,35 @@ public class ChatRoomActivity extends AppCompatActivity {
     }
 
     private void loadDataFromDatabase() {
-        MyOpener dbOpener = new MyOpener(this);
+        dbOpener = new MyOpener(this);
         db = dbOpener.getWritableDatabase();
 
-        String[] columns = {MyOpener.COL_SENDER, MyOpener.COL_MSG};
+        String[] columns = {MyOpener.COL_ID, MyOpener.COL_SENDER, MyOpener.COL_MSG};
 
         Cursor results = db.query(false, MyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
 
         int messageColIndex = results.getColumnIndex(MyOpener.COL_MSG);
         int senderColIndex = results.getColumnIndex(MyOpener.COL_SENDER);
-        int idColIndex = results.getColumnIndex(MyOpener.COL_SENDER);
+        int idColIndex = results.getColumnIndex(MyOpener.COL_ID);
 
         while (results.moveToNext()) {
+
             String message = results.getString(messageColIndex);
-            boolean sender = true;
+            String sender = results.getString(senderColIndex);
             long id = results.getLong(idColIndex);
 
             //add the new Contact to the array list:
-            elements.add(new Message(message, sender, id));
-            myAdapter.notifyDataSetChanged();
+            elements.add(new Message(message, (sender.equals("1")?true:false), id));
         }
+        myAdapter.notifyDataSetChanged();
+
+        // used for debug purposes for your final project
+        results = dbOpener.viewData();
+    }
+
+    protected void deleteMessage(Message m)
+    {
+        db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + "= ?", new String[] {Long.toString(m.getId())});
     }
 
     public class ChatRoomAdapter extends BaseAdapter {
@@ -178,38 +190,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                 text.setText(getItem(position));
             }
             return newView;
-        }
-    }
-
-    public class Message {
-        long id;
-        String message;
-        boolean side;
-
-        public Message(String message, boolean side, long id) {
-            this.id = id;
-            this.message = message;
-            this.side = side;
-        }
-
-        public long getId() {
-            return id;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public boolean isSide() {
-            return side;
-        }
-
-        public void setSide(boolean side) {
-            this.side = side;
         }
     }
 }
