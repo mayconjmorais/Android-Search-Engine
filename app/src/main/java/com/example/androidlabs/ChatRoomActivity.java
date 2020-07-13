@@ -143,7 +143,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         myAdapter.notifyDataSetChanged();
 
         // used for debug purposes for your final project
-        results = dbOpener.viewData();
+        dbOpener.printCursor(results, dbOpener.VERSION_NUM);
     }
 
     protected void deleteMessage(Message m)

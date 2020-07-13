@@ -37,17 +37,11 @@ public class MyOpener extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
+
     // This function will be used for debug purposes for your final project
-    public Cursor viewData(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "Select * from " + TABLE_NAME;
-        Cursor cursor = db.rawQuery(query, null);
-        printCursor(cursor, VERSION_NUM);
-        return cursor;
-    }
-    // TODO follow the requirement
     public void printCursor(Cursor cursor, int version){
         SQLiteDatabase db = this.getReadableDatabase();
+        String query = "Select * from " + TABLE_NAME;
         Log.v("Database Version:", String.valueOf(db.getVersion()));
         Log.v("Number of columns: ", String.valueOf(cursor.getColumnCount()));
         for (int i = 0; i < cursor.getColumnCount(); i++){
