@@ -30,4 +30,5 @@
     <string name="no">Nao</string>
     <string name="alertmsg1">A linha selecionada e: </string>
     <string name="alertmsg2">O Id no banco de dados e: </string>
+    <string name="weather">Weather Forecast</string>
 </resources>

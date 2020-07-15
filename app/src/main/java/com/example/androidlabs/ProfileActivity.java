@@ -28,6 +28,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         // setting EditText email into xml
         EditText typeYourEmail = findViewById(R.id.typeYourEmail);
+        Button clickWeather = findViewById(R.id.btWeather);
+        Button clickChat = findViewById(R.id.clickChat);
+
         typeYourEmail.setText(PreviousEmail);
 
         mImageButton = findViewById(R.id.picture);
@@ -37,10 +40,15 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         // Lab 4
-        Button clickChat = findViewById(R.id.clickChat);
         clickChat.setOnClickListener(cc -> {
             Intent goToChat  = new Intent(this, ChatRoomActivity.class);
             startActivity(goToChat);
+        });
+
+        // Lab 6
+        clickWeather.setOnClickListener(cw -> {
+            Intent goToWeather  = new Intent(this, WeatherForecast.class);
+            startActivity(goToWeather);
         });
 
     }

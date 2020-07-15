@@ -29,4 +29,5 @@
     <string name="no">No</string>
     <string name="alertmsg1">The selected row is: </string>
     <string name="alertmsg2">The database id is: </string>
+    <string name="weather">Weather Forecast</string>
 </resources>
