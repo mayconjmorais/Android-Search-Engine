@@ -4,6 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginTop="27dp"
+    android:layout_marginBottom="27dp"
+    android:layout_marginLeft="48dp"
+    android:layout_marginRight="48dp"
+
     >
     <TextView
         android:layout_width="match_parent"
@@ -23,7 +28,11 @@
         android:layout_height="wrap_content"
         android:hint="@string/typeYourName"
         android:gravity="fill_horizontal"
-        />
+        android:nextFocusDown="@id/textYourEmail"
+        android:nextFocusUp="@id/picture"
+        android:nextFocusRight="@id/btWeather"
+        android:nextFocusLeft="@id/typeYourEmail"
+    />
 
     <TextView
         android:id="@+id/textYourEmail"
@@ -39,6 +48,10 @@
         android:layout_height="wrap_content"
         android:hint="@string/textEmailAddress"
         android:gravity="fill_horizontal"
+        android:nextFocusDown="@id/textYourEmail"
+        android:nextFocusUp="@id/picture"
+        android:nextFocusRight="@id/btWeather"
+        android:nextFocusLeft="@id/typeYourEmail"
         />
     <TextView
         android:id="@+id/yourPicture"
@@ -67,6 +80,10 @@
         android:id="@+id/clickChat"
         android:text="@string/chat"
         android:drawableStart="@drawable/chat"
+        android:nextFocusDown="@id/btWeather"
+        android:nextFocusUp="@id/picture"
+        android:nextFocusRight="@id/btWeather"
+        android:nextFocusLeft="@id/typeYourEmail"
         />
 
     <Button
@@ -75,5 +92,9 @@
         android:id="@+id/btWeather"
         android:text="@string/weather"
         android:drawableStart="@drawable/weather"
+        android:nextFocusDown="@id/textYourEmail"
+        android:nextFocusUp="@id/picture"
+        android:nextFocusRight="@id/btWeather"
+        android:nextFocusLeft="@id/typeYourEmail"
         />
 </LinearLayout>
