@@ -31,4 +31,8 @@
     <string name="alertmsg1">A linha selecionada e: </string>
     <string name="alertmsg2">O Id no banco de dados e: </string>
     <string name="weather">Weather Forecast</string>
+    <string name="hello_blank_fragment">Mensagem aqui</string>
+    <string name="fragmentID">ID=</string>
+    <string name="fragmentbox">E uma mensagem enviada</string>
+    <string name="fragmentbutton">ESCONDER</string>
 </resources>

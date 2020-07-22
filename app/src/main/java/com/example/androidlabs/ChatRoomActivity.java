@@ -1,6 +1,7 @@
 package com.example.androidlabs;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 public class ChatRoomActivity extends AppCompatActivity {
     ListView listView;
     MyOpener dbOpener;
+    private Button hide;
+
     private ChatRoomAdapter myAdapter;
     private ArrayList<Message> elements = new ArrayList<>();
     SQLiteDatabase db;
@@ -33,8 +37,24 @@ public class ChatRoomActivity extends AppCompatActivity {
         ListView myList = findViewById(R.id.theListView);
         EditText message = findViewById(R.id.chatMessage);
         myList.setAdapter(myAdapter = new ChatRoomAdapter(elements));
+        hide = findViewById(R.id.hideButton);
 
         loadDataFromDatabase();
+
+        boolean isTable = findViewById(R.id.frameLayout) != null;
+
+        myList.setOnItemClickListener((list, view, position, id)->{
+            if (isTable){
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, new DetailsFragment() )
+                        .commit();
+            } else{
+                Intent nextActivity = new Intent(ChatRoomActivity.this, EmptyActivity.class);
+                //nextActivity.putExtra(datatopass);
+                startActivity(nextActivity);
+            }
+        });
 
         // bandit button
         Button send = findViewById(R.id.senderButton);

@@ -30,4 +30,9 @@
     <string name="alertmsg1">The selected row is: </string>
     <string name="alertmsg2">The database id is: </string>
     <string name="weather">Weather Forecast</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Message Here</string>
+    <string name="fragmentID">ID=</string>
+    <string name="fragmentbox">Is a Send Message</string>
+    <string name="fragmentbutton">HIDE</string>
 </resources>
