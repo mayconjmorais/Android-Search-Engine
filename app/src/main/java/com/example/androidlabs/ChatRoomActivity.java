@@ -25,6 +25,9 @@ public class ChatRoomActivity extends AppCompatActivity {
     ListView listView;
     MyOpener dbOpener;
     private Button hide;
+    public static final String ITEM_MESSAGE = "MESSAGE";
+    public static final String ITEM_SIDE = "SIDE";
+    public static final String ITEM_ID = "ID";
 
     private ChatRoomAdapter myAdapter;
     private ArrayList<Message> elements = new ArrayList<>();
@@ -44,14 +47,22 @@ public class ChatRoomActivity extends AppCompatActivity {
         boolean isTable = findViewById(R.id.frameLayout) != null;
 
         myList.setOnItemClickListener((list, view, position, id)->{
+            DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString(ITEM_MESSAGE, elements.get(position).getMessage() );
+            dataToPass.putBoolean(ITEM_SIDE, elements.get(position).isSide());
+            dataToPass.putLong(ITEM_ID, id) ;
+
             if (isTable){
+                dFragment.setArguments( dataToPass ); //pass it a bundle for information
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.frameLayout, new DetailsFragment() )
+                        .replace(R.id.frameLayout, dFragment )
                         .commit();
             } else{
                 Intent nextActivity = new Intent(ChatRoomActivity.this, EmptyActivity.class);
-                //nextActivity.putExtra(datatopass);
+                nextActivity.putExtras(dataToPass);
+                //dFragment.setArguments(dataToPass);
                 startActivity(nextActivity);
             }
         });
@@ -129,14 +140,14 @@ public class ChatRoomActivity extends AppCompatActivity {
                    // alert.show();
             return false;
         });
-
+/*      update - remove this part from layout
         // Refresh function
         SwipeRefreshLayout refreshLayout = findViewById(R.id.refresher);
         refreshLayout.setOnRefreshListener(() -> {
             //on refresh function()
             myAdapter.notifyDataSetChanged(); //rebuild list
             refreshLayout.setRefreshing(false);
-        });
+        });*/
     }
 
     private void loadDataFromDatabase() {

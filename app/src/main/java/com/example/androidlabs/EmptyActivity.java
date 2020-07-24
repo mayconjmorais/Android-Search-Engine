@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ListView;
 
 public class EmptyActivity extends AppCompatActivity {
 
@@ -12,17 +13,13 @@ public class EmptyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empty);
 
-        boolean isTable = findViewById(R.id.frameLayout) != null;
+        Bundle dataToPass = getIntent().getExtras();;
 
-        if (isTable) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.frameLayout, new DetailsFragment())
-                    .commit();
-        } else {
-            Intent nextActivity = new Intent(EmptyActivity.this, EmptyActivity.class);
-            //nextActivity.putExtra(datatopass);
-            startActivity(nextActivity);
-        }
+        DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
+        dFragment.setArguments( dataToPass ); //pass it a bundle for information
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frameLayout, dFragment )
+                .commit();
     }
 }
