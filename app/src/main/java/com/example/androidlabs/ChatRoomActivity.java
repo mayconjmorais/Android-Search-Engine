@@ -35,6 +35,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ChatRoomAdapter myAdapter;
     private ArrayList<Message> elements = new ArrayList<>();
     SQLiteDatabase db;
+DetailsFragment loadedFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 dFragment.setArguments(dataToPass); //pass it a bundle for information
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.frameLayout, dFragment)
+                        .replace(R.id.frameLayout, loadedFragment = dFragment)
                         .commit();
             } else {
                 Intent nextActivity = new Intent(ChatRoomActivity.this, EmptyActivity.class);
@@ -136,11 +137,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.yes, (click, arg) -> {
                         deleteMessage(elements.get(pos));
 
-                        // remove fragment when message was deleted
-//                        parentActivity.getSupportFragmentManager()
-//                                .beginTransaction()
-//                                .remove(getSupportFragmentManager().findFragmentById(R.id.frameLayout))
-//                                .commit();
+                       if(loadedFragment != null) // remove fragment when message was deleted
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .remove(loadedFragment)
+                                .commit();
+                        loadedFragment = null;
                         elements.remove(pos);
                         myAdapter.notifyDataSetChanged();
                     })
