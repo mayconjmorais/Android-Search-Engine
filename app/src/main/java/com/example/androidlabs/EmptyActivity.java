@@ -15,8 +15,8 @@ public class EmptyActivity extends AppCompatActivity {
 
         Bundle dataToPass = getIntent().getExtras();;
 
-        DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
-        dFragment.setArguments( dataToPass ); //pass it a bundle for information
+        DetailsFragment dFragment = new DetailsFragment();
+        dFragment.setArguments( dataToPass ); 
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frameLayout, dFragment )
