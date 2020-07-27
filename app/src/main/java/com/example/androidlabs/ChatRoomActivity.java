@@ -22,8 +22,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.util.ArrayList;
 
 public class ChatRoomActivity extends AppCompatActivity {
-    ListView listView;
-    MyOpener dbOpener;
+    private AppCompatActivity parentActivity;
+    private Bundle dataToPass;
+    private DetailsFragment dFragment;
+    private ListView listView;
+    private MyOpener dbOpener;
     private Button hide;
     public static final String ITEM_MESSAGE = "MESSAGE";
     public static final String ITEM_SIDE = "SIDE";
@@ -32,6 +35,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ChatRoomAdapter myAdapter;
     private ArrayList<Message> elements = new ArrayList<>();
     SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,20 +50,20 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         boolean isTable = findViewById(R.id.frameLayout) != null;
 
-        myList.setOnItemClickListener((list, view, position, id)->{
-            DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
-            Bundle dataToPass = new Bundle();
-            dataToPass.putString(ITEM_MESSAGE, elements.get(position).getMessage() );
+        myList.setOnItemClickListener((list, view, position, id) -> {
+            dFragment = new DetailsFragment(); //add a DetailFragment
+            dataToPass = new Bundle();
+            dataToPass.putString(ITEM_MESSAGE, elements.get(position).getMessage());
             dataToPass.putBoolean(ITEM_SIDE, elements.get(position).isSide());
-            dataToPass.putLong(ITEM_ID, id) ;
+            dataToPass.putLong(ITEM_ID, id);
 
-            if (isTable){
-                dFragment.setArguments( dataToPass ); //pass it a bundle for information
+            if (isTable) {
+                dFragment.setArguments(dataToPass); //pass it a bundle for information
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.frameLayout, dFragment )
+                        .replace(R.id.frameLayout, dFragment)
                         .commit();
-            } else{
+            } else {
                 Intent nextActivity = new Intent(ChatRoomActivity.this, EmptyActivity.class);
                 nextActivity.putExtras(dataToPass);
                 //dFragment.setArguments(dataToPass);
@@ -71,24 +75,24 @@ public class ChatRoomActivity extends AppCompatActivity {
         Button send = findViewById(R.id.senderButton);
         send.setOnClickListener(sd -> {
             String messageText = message.getText().toString();
-             if (messageText != null && !messageText.isEmpty()) {
-                 //add to the database and get the new ID
-                 ContentValues newRowValues = new ContentValues();
+            if (messageText != null && !messageText.isEmpty()) {
+                //add to the database and get the new ID
+                ContentValues newRowValues = new ContentValues();
 
-                 //put string sender in the SENDER column:
-                 newRowValues.put(MyOpener.COL_SENDER, true);
+                //put string sender in the SENDER column:
+                newRowValues.put(MyOpener.COL_SENDER, true);
 
-                 //put string message in the MSG column:
-                 newRowValues.put(MyOpener.COL_MSG, messageText);
+                //put string message in the MSG column:
+                newRowValues.put(MyOpener.COL_MSG, messageText);
 
-                 //Now insert in the database:
-                 long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValues);
-                 Message newMessage = new Message(messageText, true, newId);
-                 elements.add(newMessage);
-                 myAdapter.notifyDataSetChanged();
-                 //should insert the message into the database
-                 message.setText("");
-             }
+                //Now insert in the database:
+                long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValues);
+                Message newMessage = new Message(messageText, true, newId);
+                elements.add(newMessage);
+                myAdapter.notifyDataSetChanged();
+                //should insert the message into the database
+                message.setText("");
+            }
         });
 
         // Soldier button
@@ -131,15 +135,22 @@ public class ChatRoomActivity extends AppCompatActivity {
                     })
                     .setPositiveButton(R.string.yes, (click, arg) -> {
                         deleteMessage(elements.get(pos));
+
+                        // remove fragment when message was deleted
+//                        parentActivity.getSupportFragmentManager()
+//                                .beginTransaction()
+//                                .remove(getSupportFragmentManager().findFragmentById(R.id.frameLayout))
+//                                .commit();
                         elements.remove(pos);
                         myAdapter.notifyDataSetChanged();
                     })
                     .setView(newView)
                     .create().show();
 
-                   // alert.show();
+            // alert.show();
             return false;
         });
+
 /*      update - remove this part from layout
         // Refresh function
         SwipeRefreshLayout refreshLayout = findViewById(R.id.refresher);
@@ -169,7 +180,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             long id = results.getLong(idColIndex);
 
             //add the new Contact to the array list:
-            elements.add(new Message(message, (sender.equals("1")?true:false), id));
+            elements.add(new Message(message, (sender.equals("1") ? true : false), id));
         }
         myAdapter.notifyDataSetChanged();
 
@@ -177,9 +188,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         dbOpener.printCursor(results, dbOpener.VERSION_NUM);
     }
 
-    protected void deleteMessage(Message m)
-    {
-        db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + "= ?", new String[] {Long.toString(m.getId())});
+    protected void deleteMessage(Message m) {
+        db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + "= ?", new String[]{Long.toString(m.getId())});
     }
 
     public class ChatRoomAdapter extends BaseAdapter {

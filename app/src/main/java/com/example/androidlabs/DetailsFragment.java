@@ -48,8 +48,8 @@ public class DetailsFragment extends Fragment {
         }
 
         hideButton = (Button)backupView.findViewById(R.id.hideButton);
-        hideButton.setOnClickListener( clk -> {
 
+        hideButton.setOnClickListener( clk -> {
             //Tell the parent activity to remove
             parentActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
         });
