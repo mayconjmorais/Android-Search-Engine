@@ -35,7 +35,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ChatRoomAdapter myAdapter;
     private ArrayList<Message> elements = new ArrayList<>();
     SQLiteDatabase db;
-DetailsFragment loadedFragment;
+    DetailsFragment loadedFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
