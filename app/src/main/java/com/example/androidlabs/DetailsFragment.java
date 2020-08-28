@@ -17,7 +17,7 @@ public class DetailsFragment extends Fragment {
     private TextView message;
     private long  id;
     private TextView idView;
-    private    CheckBox checkBox;
+    private CheckBox checkBox;
     private AppCompatActivity parentActivity;
     private Button hideButton;
 

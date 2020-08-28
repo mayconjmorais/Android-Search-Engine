@@ -144,13 +144,13 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 .commit();
                         loadedFragment = null;
                         elements.remove(pos);
-                        myAdapter.notifyDataSetChanged();
+                            myAdapter.notifyDataSetChanged();
                     })
                     .setView(newView)
                     .create().show();
 
             // alert.show();
-            return false;
+            return true;
         });
 
 /*      update - remove this part from layout
